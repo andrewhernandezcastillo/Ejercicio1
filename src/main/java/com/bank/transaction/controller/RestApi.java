@@ -1,19 +1,36 @@
 package com.bank.transaction.controller;
 
-import com.bank.transaction.service.IServices;
+import com.bank.transaction.service.ServicesImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController()
+
+@RestController
+@RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class RestApi {
-    @Autowired
-    private IServices action;
 
-    @GetMapping("api/v1/{option}")
-    private String action(@PathVariable String option) {
-        return action.action(option);
+    private final ServicesImpl action;
+
+    @PostMapping("add/{option}")
+    private String add(@PathVariable String option) {
+        return action.add(option);
+    }
+
+    @GetMapping("get/{option}")
+    private String get(@PathVariable String option) {
+        return action.get(option);
+    }
+
+    @PatchMapping("patch/{option}")
+    private String patch(@PathVariable String option) {
+        return action.update(option);
+    }
+
+    @DeleteMapping("delete/{option}")
+    private String delete(@PathVariable String option) {
+        return action.delete(option);
     }
 
 }
